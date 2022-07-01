@@ -21,11 +21,11 @@ namespace Aiko.Api
 
             Initializer.Configure(services);
 
-            services.AddControllers();
-            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-            services.AddEndpointsApiExplorer();
-            services.AddVersioning();
-            services.AddSwaggerGen();
+            services
+                .AddEndpointsApiExplorer()
+                .AddVersioning()
+                .AddSwaggerGen()
+                .AddCustomControllers();
         }
 
         public void Configure(

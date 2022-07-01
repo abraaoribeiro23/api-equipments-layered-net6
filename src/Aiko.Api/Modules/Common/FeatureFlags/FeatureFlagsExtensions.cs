@@ -15,6 +15,14 @@ public static class FeatureFlagsExtensions
     {
         services.AddFeatureManagement(configuration);
 
+        var featureManager = services.BuildServiceProvider()
+            .GetRequiredService<IFeatureManager>();
+
+        services.AddMvc()
+            .ConfigureApplicationPartManager(apm =>
+                apm.FeatureProviders.Add(
+                    new CustomControllerFeatureProvider(featureManager)));
+
         return services;
     }
 }

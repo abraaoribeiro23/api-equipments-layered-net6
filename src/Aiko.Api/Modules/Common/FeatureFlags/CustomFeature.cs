@@ -6,29 +6,9 @@ namespace Aiko.Api.Modules.Common.FeatureFlags;
 public enum CustomFeature
 {
     /// <summary>
-    ///     Get Airplane.
+    ///     Get Equipment.
     /// </summary>
-    Airplane,
-
-    /// <summary>
-    ///     Get SystemUser.
-    /// </summary>
-    SystemUser,
-
-    /// <summary>
-    ///     Get SystemMenu.
-    /// </summary>
-    SystemMenu,
-
-    /// <summary>
-    ///     Get Common.
-    /// </summary>
-    Common,
-
-    /// <summary>
-    ///     HealthChecks.
-    /// </summary>
-    HealthChecks,
+    Equipment,
 
     /// <summary>
     ///     Use Swagger.
@@ -36,24 +16,7 @@ public enum CustomFeature
     Swagger,
 
     /// <summary>
-    ///     Use Ms SQL Server Persistence.
-    /// </summary>
-    MsSqlServer,
-
-    /// <summary>
-    ///     Use Postgres Sql Persistence.
-    /// </summary>
-    PostgresSql,
-
-
-    /// <summary>
     ///     Inject Initial Data on memory Db.
     /// </summary>
-    InjectInitialData,
-
-
-    /// <summary>
-    ///     Use authentication.
-    /// </summary>
-    Authentication
+    InjectInitialData
 }

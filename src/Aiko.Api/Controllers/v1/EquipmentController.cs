@@ -1,36 +1,34 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using Aiko.Api.Modules.Common;
-using Aiko.Domain.Interfaces;
 using Aiko.Domain.Models;
+using Aiko.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Aiko.Api.Controllers
+namespace Aiko.Api.Controllers.v1
 {
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class EquipmentModelController : ControllerBase
+    public class EquipmentController : ControllerBase
     {
-        //private readonly EquipmentModelService _equipmentModelService;
-        private readonly IBaseRepository<EquipmentModel> _repository;
+        private readonly EquipmentService _equipmentService;
 
-        public EquipmentModelController(IBaseRepository<EquipmentModel> repository)
+        public EquipmentController(EquipmentService equipmentService)
         {
-            //_equipmentService = equipmentService;
-            _repository = repository;
+            _equipmentService = equipmentService;
         }
 
         /// <summary>
-        ///     Get All EquipmentModels.
+        ///     Get All Equipments.
         /// </summary>
         [HttpGet("get-all")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.List))]
-        public IEnumerable<EquipmentModel> GetAll()
+        public IEnumerable<Equipment> GetAll()
         {
             try
             {
-                return _repository.GetAll();
+                return _equipmentService.GetAll();
             }
             catch (Exception ex)
             {
@@ -38,16 +36,16 @@ namespace Aiko.Api.Controllers
             }
         }
         /// <summary>
-        ///     Get an EquipmentModel details.
+        ///     Get an Equipment details.
         /// </summary>
         /// <param name="id"></param>
         [HttpGet("get-by-id/{id:Guid}")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Find))]
-        public EquipmentModel Get([FromRoute][Required] Guid id)
+        public Equipment? GetById([FromRoute][Required] Guid id)
         {
             try
             {
-                return _repository.GetById(id);
+                return _equipmentService.GetById(id);
             }
             catch (Exception ex)
             {
@@ -55,16 +53,16 @@ namespace Aiko.Api.Controllers
             }
         }
         /// <summary>
-        ///     Create an EquipmentModel.
+        ///     Create an Equipment.
         /// </summary>
         /// <param name="dto"></param>
-        [HttpPost(Name = "create")]
+        [HttpPost("create")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Create))]
-        public EquipmentModel Create([FromBody][Required] EquipmentModel dto)
+        public Equipment Create([FromBody][Required] Equipment dto)
         {
             try
             {
-                return _repository.Add(dto);
+                return _equipmentService.Create(dto);
             }
             catch (Exception ex)
             {
@@ -72,16 +70,16 @@ namespace Aiko.Api.Controllers
             }
         }
         /// <summary>
-        ///     Edit an EquipmentModel.
+        ///     Edit an Equipment.
         /// </summary>
         /// <param name="dto"></param>
-        [HttpPut(Name = "edit")]
+        [HttpPut("edit")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Edit))]
-        public HttpResponseMessage Edit([FromBody][Required] EquipmentModel dto)
+        public HttpResponseMessage Edit([FromBody][Required] Equipment dto)
         {
             try
             {
-                _repository.Update(dto);
+                _equipmentService.Update(dto);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)
@@ -94,7 +92,7 @@ namespace Aiko.Api.Controllers
             }
         }
         /// <summary>
-        ///     Delete an EquipmentModel.
+        ///     Delete an Equipment.
         /// </summary>
         /// <param name="id"></param>
         [HttpDelete("delete/{id:Guid}")]
@@ -103,7 +101,7 @@ namespace Aiko.Api.Controllers
         {
             try
             {
-                _repository.Delete(id);
+                _equipmentService.Delete(id);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)

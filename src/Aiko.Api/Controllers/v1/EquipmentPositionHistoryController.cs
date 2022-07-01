@@ -1,36 +1,34 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using Aiko.Api.Modules.Common;
-using Aiko.Domain.Interfaces;
 using Aiko.Domain.Models;
+using Aiko.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Aiko.Api.Controllers
+namespace Aiko.Api.Controllers.v1
 {
     [ApiController]
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    public class EquipmentStateHistoryController : ControllerBase
+    public class EquipmentPositionHistoryController : ControllerBase
     {
-        //private readonly EquipmentStateHistoryService _equipmentStateHistoryService;
-        private readonly IBaseRepository<EquipmentStateHistory> _repository;
+        private readonly EquipmentPositionHistoryService _equipmentPositionHistoryService;
 
-        public EquipmentStateHistoryController(IBaseRepository<EquipmentStateHistory> repository)
+        public EquipmentPositionHistoryController(EquipmentPositionHistoryService equipmentPositionHistoryService)
         {
-            //_equipmentStateHistoryService = equipmentStateHistoryService;
-            _repository = repository;
+            _equipmentPositionHistoryService = equipmentPositionHistoryService;
         }
 
         /// <summary>
-        ///     Get All EquipmentStateHistorys.
+        ///     Get All EquipmentPositionHistorys.
         /// </summary>
-        [HttpGet("/get-all")]
+        [HttpGet("get-all")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.List))]
-        public IEnumerable<EquipmentStateHistory> GetAll()
+        public IEnumerable<EquipmentPositionHistory> GetAll()
         {
             try
             {
-                return _repository.GetAll();
+                return _equipmentPositionHistoryService.GetAll();
             }
             catch (Exception ex)
             {
@@ -38,16 +36,16 @@ namespace Aiko.Api.Controllers
             }
         }
         /// <summary>
-        ///     Get an EquipmentStateHistory details.
+        ///     Get an EquipmentPositionHistory details.
         /// </summary>
         /// <param name="id"></param>
         [HttpGet("get-by-id/{id:Guid}")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Find))]
-        public EquipmentStateHistory Get([FromRoute][Required] Guid id)
+        public EquipmentPositionHistory? GetById([FromRoute][Required] Guid id)
         {
             try
             {
-                return _repository.GetById(id);
+                return _equipmentPositionHistoryService.GetById(id);
             }
             catch (Exception ex)
             {
@@ -55,16 +53,16 @@ namespace Aiko.Api.Controllers
             }
         }
         /// <summary>
-        ///     Create an EquipmentStateHistory.
+        ///     Create an EquipmentPositionHistory.
         /// </summary>
         /// <param name="dto"></param>
-        [HttpPost(Name = "/create")]
+        [HttpPost("create")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Create))]
-        public EquipmentStateHistory Create([FromBody][Required] EquipmentStateHistory dto)
+        public EquipmentPositionHistory Create([FromBody][Required] EquipmentPositionHistory dto)
         {
             try
             {
-                return _repository.Add(dto);
+                return _equipmentPositionHistoryService.Create(dto);
             }
             catch (Exception ex)
             {
@@ -72,16 +70,16 @@ namespace Aiko.Api.Controllers
             }
         }
         /// <summary>
-        ///     Edit an EquipmentStateHistory.
+        ///     Edit an EquipmentPositionHistory.
         /// </summary>
         /// <param name="dto"></param>
-        [HttpPut(Name = "/edit")]
+        [HttpPut("edit")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Edit))]
-        public HttpResponseMessage Edit([FromBody][Required] EquipmentStateHistory dto)
+        public HttpResponseMessage Edit([FromBody][Required] EquipmentPositionHistory dto)
         {
             try
             {
-                _repository.Update(dto);
+                _equipmentPositionHistoryService.Update(dto);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)
@@ -94,16 +92,16 @@ namespace Aiko.Api.Controllers
             }
         }
         /// <summary>
-        ///     Delete an EquipmentStateHistory.
+        ///     Delete an EquipmentPositionHistory.
         /// </summary>
         /// <param name="id"></param>
-        [HttpDelete("/delete/{id:Guid}")]
+        [HttpDelete("delete/{id:Guid}")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Delete))]
         public HttpResponseMessage Delete([FromRoute][Required] Guid id)
         {
             try
             {
-                _repository.Delete(id);
+                _equipmentPositionHistoryService.Delete(id);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)
