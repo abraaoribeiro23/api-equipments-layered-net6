@@ -3,9 +3,9 @@ using Aiko.Domain.Models;
 
 namespace Aiko.Domain.Services
 {
-    public class EquipmentService: BaseService<Equipment>
+    public class EquipmentStateService : BaseService<EquipmentState>
     {
-        public EquipmentService(IBaseRepository<Equipment> repository,
+        public EquipmentStateService(IBaseRepository<EquipmentState> repository,
             IUnitOfWork unitOfWork): base(repository, unitOfWork)
         {
         }

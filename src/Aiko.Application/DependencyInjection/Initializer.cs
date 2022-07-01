@@ -43,9 +43,14 @@ namespace Aiko.Application.DependencyInjection
             #region Services
 
             services.AddScoped(typeof(EquipmentService));
+            services.AddScoped(typeof(EquipmentModelService));
+            services.AddScoped(typeof(EquipmentModelStateHourlyEarningService));
+            services.AddScoped(typeof(EquipmentPositionHistoryService));
+            services.AddScoped(typeof(EquipmentStateService));
+            services.AddScoped(typeof(EquipmentStateHistoryService));
 
             #endregion
-            
+
         }
     }
 }
