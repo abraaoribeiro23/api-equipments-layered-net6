@@ -1,6 +1,4 @@
-﻿using Aiko.Domain.Bases;
-using Aiko.Domain.Interfaces;
-using Aiko.Domain.Models;
+﻿using Aiko.Domain.Interfaces;
 
 namespace Aiko.Domain.Services
 {
@@ -23,24 +21,24 @@ namespace Aiko.Domain.Services
         {
             return _repository.GetById(id);
         }
-        public TEntity Create(TEntity entity)
+        public async Task<TEntity> Create(TEntity entity)
         {
-            var result = _repository.Add(entity);
-            _unitOfWork.Commit();
+            var result = await _repository.Add(entity).ConfigureAwait(false);
+            await _unitOfWork.Commit().ConfigureAwait(false);
             return result;
         }
-        public void Update(TEntity entity)
+        public async Task Update(TEntity entity)
         {
             _repository.Update(entity);
-            _unitOfWork.Commit();
+            await _unitOfWork.Commit().ConfigureAwait(false);
         }
-        public void Delete(Guid id)
+        public async Task Delete(Guid id)
         {
             var entityDb = _repository.GetById(id);
             if (entityDb == null) return;
 
             _repository.Delete(id);
-            _unitOfWork.Commit();
+            await _unitOfWork.Commit().ConfigureAwait(false);
         }
     }
 }

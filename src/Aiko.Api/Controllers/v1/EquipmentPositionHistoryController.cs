@@ -58,11 +58,11 @@ namespace Aiko.Api.Controllers.v1
         /// <param name="dto"></param>
         [HttpPost("create")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Create))]
-        public EquipmentPositionHistory Create([FromBody][Required] EquipmentPositionHistory dto)
+        public async Task<EquipmentPositionHistory> Create([FromBody][Required] EquipmentPositionHistory dto)
         {
             try
             {
-                return _equipmentPositionHistoryService.Create(dto);
+                return await _equipmentPositionHistoryService.Create(dto);
             }
             catch (Exception ex)
             {
@@ -75,11 +75,11 @@ namespace Aiko.Api.Controllers.v1
         /// <param name="dto"></param>
         [HttpPut("edit")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Edit))]
-        public HttpResponseMessage Edit([FromBody][Required] EquipmentPositionHistory dto)
+        public async Task<HttpResponseMessage> Edit([FromBody][Required] EquipmentPositionHistory dto)
         {
             try
             {
-                _equipmentPositionHistoryService.Update(dto);
+                await _equipmentPositionHistoryService.Update(dto);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)
@@ -97,11 +97,11 @@ namespace Aiko.Api.Controllers.v1
         /// <param name="id"></param>
         [HttpDelete("delete/{id:Guid}")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Delete))]
-        public HttpResponseMessage Delete([FromRoute][Required] Guid id)
+        public async Task<HttpResponseMessage> Delete([FromRoute][Required] Guid id)
         {
             try
             {
-                _equipmentPositionHistoryService.Delete(id);
+                await _equipmentPositionHistoryService.Delete(id);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)

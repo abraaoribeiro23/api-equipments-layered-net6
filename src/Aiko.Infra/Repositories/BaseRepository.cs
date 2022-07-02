@@ -1,44 +1,48 @@
 ﻿using Aiko.Domain.Bases;
 using Aiko.Domain.Interfaces;
 using Aiko.Infra.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Aiko.Infra.Repositories
 {
     public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
     {
         protected readonly AppDbContext _context;
+        protected readonly DbSet<TEntity> _dbSet;
 
         public BaseRepository(AppDbContext context)
         {
             _context = context;
+            _dbSet = _context.Set<TEntity>();
         }
 
         public TEntity? GetById(Guid id)
         {
-            var query = _context.Set<TEntity>().Where(entity => entity.Id == id);
+            var query = _dbSet.Where(entity => entity.Id == id);
             return query.Any() ? query.FirstOrDefault() : null;
         }
 
         public IEnumerable<TEntity> GetAll()
         {
-            var query = _context.Set<TEntity>();
+            var query = _dbSet;
             return query.ToList();
         }
 
-        public TEntity Add(TEntity entity)
+        public async Task<TEntity> Add(TEntity entity)
         {
-            return _context.Set<TEntity>().Add(entity).Entity;
+            var result = await _dbSet.AddAsync(entity).ConfigureAwait(false);
+            return result.Entity;
         }
 
         public void Update(TEntity entity)
         {
-            _context.Set<TEntity>().Update(entity);
+            _dbSet.Update(entity);
         }
 
         public void Delete(Guid id)
         {
-            var query = _context.Set<TEntity>().Find(id);
-            if (query != null) _context.Set<TEntity>().Remove(query);
+            var query = _dbSet.Find(id);
+            if (query != null) _dbSet.Remove(query);
         }
     }
 }

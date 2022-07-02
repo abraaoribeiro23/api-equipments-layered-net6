@@ -58,11 +58,11 @@ namespace Aiko.Api.Controllers.v1
         /// <param name="dto"></param>
         [HttpPost("create")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Create))]
-        public EquipmentModel Create([FromBody][Required] EquipmentModel dto)
+        public async Task<EquipmentModel> Create([FromBody][Required] EquipmentModel dto)
         {
             try
             {
-                return _equipmentModelService.Create(dto);
+                return await _equipmentModelService.Create(dto);
             }
             catch (Exception ex)
             {
@@ -75,11 +75,11 @@ namespace Aiko.Api.Controllers.v1
         /// <param name="dto"></param>
         [HttpPut("edit")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Edit))]
-        public HttpResponseMessage Edit([FromBody][Required] EquipmentModel dto)
+        public async Task<HttpResponseMessage> Edit([FromBody][Required] EquipmentModel dto)
         {
             try
             {
-                _equipmentModelService.Update(dto);
+                await _equipmentModelService.Update(dto);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)
@@ -97,11 +97,11 @@ namespace Aiko.Api.Controllers.v1
         /// <param name="id"></param>
         [HttpDelete("delete/{id:Guid}")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Delete))]
-        public HttpResponseMessage Delete([FromRoute][Required] Guid id)
+        public async Task<HttpResponseMessage> Delete([FromRoute][Required] Guid id)
         {
             try
             {
-                _equipmentModelService.Delete(id);
+                await _equipmentModelService.Delete(id);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)

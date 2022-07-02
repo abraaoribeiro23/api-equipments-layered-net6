@@ -4,7 +4,7 @@
     {
         TEntity? GetById(Guid id);
         IEnumerable<TEntity> GetAll();
-        TEntity Add(TEntity entity);
+        Task<TEntity> Add(TEntity entity);
         void Update(TEntity entity);
         void Delete(Guid id);
     }
