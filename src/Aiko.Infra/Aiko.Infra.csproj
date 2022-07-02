@@ -7,6 +7,36 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="SeedData\equipment.json" />
+    <None Remove="SeedData\equipment_model.json" />
+    <None Remove="SeedData\equipment_model_state_hourly_earnings.json" />
+    <None Remove="SeedData\equipment_position_history.json" />
+    <None Remove="SeedData\equipment_state.json" />
+    <None Remove="SeedData\equipment_state_history.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SeedData\equipment.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedData\equipment_model.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedData\equipment_model_state_hourly_earnings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedData\equipment_position_history.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedData\equipment_state.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SeedData\equipment_state_history.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.6">
       <PrivateAssets>all</PrivateAssets>

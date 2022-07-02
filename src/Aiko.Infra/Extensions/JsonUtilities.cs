@@ -9,19 +9,16 @@ public static class JsonUtilities
     public static List<TTargetModel>? GetListFromJson<TTargetModel>(Stream? jsonStream)
         where TTargetModel : BaseEntity
     {
-        if (jsonStream != null)
-        {
-            var reader = new StreamReader(jsonStream);
-            var jsonString = reader.ReadToEnd();
+        if (jsonStream == null) return new List<TTargetModel>();
+        var reader = new StreamReader(jsonStream);
+        var jsonString = reader.ReadToEnd();
 
-            var list = JsonConvert.DeserializeObject<List<TTargetModel>>(jsonString);
+        var list = JsonConvert.DeserializeObject<List<TTargetModel>>(jsonString);
 
-            reader.Dispose();
+        reader.Dispose();
 
-            return list;
-        }
+        return list;
 
-        return new List<TTargetModel>();
     }
 
     public static List<TTargetModel>? GetListFromJsonSnakeCaseNamingStrategy<TTargetModel>(

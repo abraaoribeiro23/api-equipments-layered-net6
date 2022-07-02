@@ -9,7 +9,7 @@ namespace Aiko.Infra.Configurations
         public void Configure(EntityTypeBuilder<Equipment> builder)
         {
             builder.Property(equipment => equipment.Id).HasColumnName("equi_uuid_equipment");
-            builder.HasKey(c => c.Id).HasName("pk_equi_airplane");
+            builder.HasKey(c => c.Id).HasName("pk_equi_equipment");
         }
     }
 }

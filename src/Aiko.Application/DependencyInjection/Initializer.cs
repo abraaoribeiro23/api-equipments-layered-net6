@@ -24,7 +24,7 @@ namespace Aiko.Application.DependencyInjection
 
             var context = services.BuildServiceProvider()
                 .GetService<AppDbContext>();
-            //CreateMemoryContextFake.AddDataFakeContext(context);
+            InMemoryContextFake.AddDataFakeContext(context);
 
             #region Repositories
 

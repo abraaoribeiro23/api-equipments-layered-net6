@@ -7,7 +7,7 @@ namespace Aiko.Domain.Models
     public class EquipmentStateHistory : BaseEntity
     {
         [Column("eqsh_uuid_equipment")]
-        public Guid EquiqmentId { get; set; }
+        public Guid EquipmentId { get; set; }
 
         [Column("eqsh_uuid_equipment_state")]
         public Guid EquipmentStateId { get; set; }
