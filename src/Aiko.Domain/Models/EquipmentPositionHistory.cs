@@ -10,9 +10,9 @@ namespace Aiko.Domain.Models
         public Guid EquipmentId { get; set; }
         [Column("eqph_dt_date", TypeName = "datetime")]
         public DateTime Date { get; set; }
-        [Column("eqph_nm_lat", TypeName = "double")]
+        [Column("eqph_nm_lat", TypeName = "float")]
         public double Lat { get; set; }
-        [Column("eqph_nm_lon", TypeName = "double")]
+        [Column("eqph_nm_lon", TypeName = "float")]
         public double Lon { get; set; }
     }
 }

@@ -10,7 +10,7 @@ namespace Aiko.Domain.Models
         public Guid EquipmentModelId { get; set; }
         [Column("emsh_uuid_equipment_state")]
         public Guid EquipmentStateId { get; set; }
-        [Column("emsh_nm_value", TypeName = "decimal")]
+        [Column("emsh_nm_value", TypeName = "decimal(18,2)")]
         public decimal Value { get; set; }
     }
 }
