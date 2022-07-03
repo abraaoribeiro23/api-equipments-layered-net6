@@ -13,26 +13,26 @@ namespace Aiko.Domain.Services
             _unitOfWork = unitOfWork;
         }
 
-        public IEnumerable<TEntity> GetAll()
+        public virtual IEnumerable<TEntity> GetAll()
         {
             return _repository.GetAll();
         }
-        public TEntity? GetById(Guid id)
+        public virtual TEntity? GetById(Guid id)
         {
             return _repository.GetById(id);
         }
-        public async Task<TEntity> Create(TEntity entity)
+        public virtual async Task<TEntity> Create(TEntity entity)
         {
             var result = await _repository.Add(entity).ConfigureAwait(false);
             await _unitOfWork.Commit().ConfigureAwait(false);
             return result;
         }
-        public async Task Update(TEntity entity)
+        public virtual async Task Update(TEntity entity)
         {
             _repository.Update(entity);
             await _unitOfWork.Commit().ConfigureAwait(false);
         }
-        public async Task Delete(Guid id)
+        public virtual async Task Delete(Guid id)
         {
             var entityDb = _repository.GetById(id);
             if (entityDb == null) return;

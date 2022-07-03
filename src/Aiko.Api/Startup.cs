@@ -1,6 +1,5 @@
 ﻿using Aiko.Api.Modules.Common;
 using Aiko.Api.Modules.Common.Swagger;
-using Aiko.Application.DependencyInjection;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.FeatureManagement;
 using Serilog;
@@ -19,9 +18,10 @@ namespace Aiko.Api
         {
             services.AddFeatureManagement(Configuration);
 
-            Initializer.Configure(services);
-
             services
+                .AddDbContext(Configuration)
+                .AddEntityRepository()
+                .AddServices()
                 .AddEndpointsApiExplorer()
                 .AddVersioning()
                 .AddSwaggerGen()

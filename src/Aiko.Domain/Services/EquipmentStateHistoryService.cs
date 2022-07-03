@@ -5,7 +5,7 @@ namespace Aiko.Domain.Services
 {
     public class EquipmentStateHistoryService : BaseService<EquipmentStateHistory>
     {
-        public EquipmentStateHistoryService(IBaseRepository<EquipmentStateHistory> repository,
+        public EquipmentStateHistoryService(IEquipmentStateHistoryRepository repository,
             IUnitOfWork unitOfWork): base(repository, unitOfWork)
         {
         }
