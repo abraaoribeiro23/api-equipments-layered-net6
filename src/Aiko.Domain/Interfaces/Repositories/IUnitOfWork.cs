@@ -1,4 +1,4 @@
-﻿namespace Aiko.Domain.Interfaces
+﻿namespace Aiko.Domain.Interfaces.Repositories
 {
     public interface IUnitOfWork
     {

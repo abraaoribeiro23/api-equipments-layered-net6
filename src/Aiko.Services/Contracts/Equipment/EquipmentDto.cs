@@ -1,4 +1,4 @@
-﻿namespace Aiko.Application.Contracts
+﻿namespace Aiko.Services.Contracts.Equipment
 {
     public class EquipmentDto
     {
