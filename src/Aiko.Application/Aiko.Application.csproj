@@ -23,6 +23,7 @@
 	<ItemGroup>
     <ProjectReference Include="..\Aiko.Domain\Aiko.Domain.csproj" />
     <ProjectReference Include="..\Aiko.Infra\Aiko.Infra.csproj" />
+    <ProjectReference Include="..\Aiko.Services\Aiko.Services.csproj" />
   </ItemGroup>
 
 </Project>

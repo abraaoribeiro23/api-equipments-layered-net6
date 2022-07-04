@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aiko.Infra", "src\Aiko.Infr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aiko.Application", "src\Aiko.Application\Aiko.Application.csproj", "{87E4D23F-D6AC-4562-B322-23644BB66F29}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiko.Services", "src\Aiko.Services\Aiko.Services.csproj", "{920108E4-58DC-41BD-A7B4-F596715D107D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{87E4D23F-D6AC-4562-B322-23644BB66F29}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87E4D23F-D6AC-4562-B322-23644BB66F29}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87E4D23F-D6AC-4562-B322-23644BB66F29}.Release|Any CPU.Build.0 = Release|Any CPU
+		{920108E4-58DC-41BD-A7B4-F596715D107D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{920108E4-58DC-41BD-A7B4-F596715D107D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{920108E4-58DC-41BD-A7B4-F596715D107D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{920108E4-58DC-41BD-A7B4-F596715D107D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

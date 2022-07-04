@@ -1,6 +1,6 @@
 ﻿using Aiko.Domain.Interfaces;
 
-namespace Aiko.Domain.Services
+namespace Aiko.Services.Services
 {
     public abstract class BaseService<TEntity> where TEntity : class
     {

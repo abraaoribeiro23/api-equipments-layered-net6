@@ -1,7 +1,7 @@
 ﻿using Aiko.Domain.Interfaces;
 using Aiko.Domain.Models;
 
-namespace Aiko.Domain.Services
+namespace Aiko.Services.Services
 {
     public class EquipmentPositionHistoryService : BaseService<EquipmentPositionHistory>
     {

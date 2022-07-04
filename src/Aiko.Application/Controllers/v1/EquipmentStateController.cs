@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Net;
 using Aiko.Application.Modules.Common;
 using Aiko.Domain.Models;
-using Aiko.Domain.Services;
+using Aiko.Services.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aiko.Application.Controllers.v1
