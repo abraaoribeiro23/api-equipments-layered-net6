@@ -3,6 +3,7 @@ using System.Net;
 using Aiko.Application.Modules.Common;
 using Aiko.Domain.Models;
 using Aiko.Services.Services;
+using Aiko.Services.Validators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aiko.Application.Controllers.v1
@@ -62,7 +63,7 @@ namespace Aiko.Application.Controllers.v1
         {
             try
             {
-                return await _equipmentPositionHistoryService.Create(dto);
+                return await _equipmentPositionHistoryService.Create<EquipmentPositionHistoryValidator>(dto);
             }
             catch (Exception ex)
             {
@@ -79,7 +80,7 @@ namespace Aiko.Application.Controllers.v1
         {
             try
             {
-                await _equipmentPositionHistoryService.Update(dto);
+                await _equipmentPositionHistoryService.Update<EquipmentPositionHistoryValidator>(dto);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)

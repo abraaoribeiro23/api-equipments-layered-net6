@@ -1,4 +1,5 @@
 ﻿using Aiko.Domain.Interfaces;
+using Aiko.Domain.Interfaces.Repositories;
 using Aiko.Infra.Repositories;
 
 namespace Aiko.Application.Modules.Common

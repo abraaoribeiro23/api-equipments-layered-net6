@@ -3,6 +3,7 @@ using System.Net;
 using Aiko.Application.Modules.Common;
 using Aiko.Domain.Models;
 using Aiko.Services.Services;
+using Aiko.Services.Validators;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aiko.Application.Controllers.v1
@@ -62,7 +63,7 @@ namespace Aiko.Application.Controllers.v1
         {
             try
             {
-                return await _equipmentStateService.Create(dto);
+                return await _equipmentStateService.Create<EquipmentStateValidator>(dto);
             }
             catch (Exception ex)
             {
@@ -79,7 +80,7 @@ namespace Aiko.Application.Controllers.v1
         {
             try
             {
-                await _equipmentStateService.Update(dto);
+                await _equipmentStateService.Update<EquipmentStateValidator>(dto);
                 return new HttpResponseMessage(HttpStatusCode.OK);
             }
             catch (Exception ex)

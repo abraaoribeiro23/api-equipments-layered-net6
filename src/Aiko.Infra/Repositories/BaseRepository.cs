@@ -1,5 +1,6 @@
 ﻿using Aiko.Domain.Bases;
 using Aiko.Domain.Interfaces;
+using Aiko.Domain.Interfaces.Repositories;
 using Aiko.Infra.Context;
 using Microsoft.EntityFrameworkCore;
 

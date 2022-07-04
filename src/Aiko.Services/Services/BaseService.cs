@@ -1,8 +1,11 @@
 ﻿using Aiko.Domain.Interfaces;
+using Aiko.Domain.Interfaces.Repositories;
+using Aiko.Domain.Interfaces.Services;
+using FluentValidation;
 
 namespace Aiko.Services.Services
 {
-    public abstract class BaseService<TEntity> where TEntity : class
+    public abstract class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class
     {
         private readonly IBaseRepository<TEntity> _repository;
         private readonly IUnitOfWork _unitOfWork;
@@ -21,14 +24,16 @@ namespace Aiko.Services.Services
         {
             return _repository.GetById(id);
         }
-        public virtual async Task<TEntity> Create(TEntity entity)
+        public virtual async Task<TEntity> Create<TValidator>(TEntity entity) where TValidator : AbstractValidator<TEntity>
         {
+            Validate(entity, Activator.CreateInstance<TValidator>());
             var result = await _repository.Add(entity).ConfigureAwait(false);
             await _unitOfWork.Commit().ConfigureAwait(false);
             return result;
         }
-        public virtual async Task Update(TEntity entity)
+        public virtual async Task Update<TValidator>(TEntity entity) where TValidator : AbstractValidator<TEntity>
         {
+            Validate(entity, Activator.CreateInstance<TValidator>());
             _repository.Update(entity);
             await _unitOfWork.Commit().ConfigureAwait(false);
         }
@@ -39,6 +44,14 @@ namespace Aiko.Services.Services
 
             _repository.Delete(id);
             await _unitOfWork.Commit().ConfigureAwait(false);
+        }
+
+        public void Validate(TEntity obj, AbstractValidator<TEntity> validator)
+        {
+            if (obj == null)
+                throw new Exception("Registros não detectados!");
+
+            validator.ValidateAndThrow(obj);
         }
     }
 }
