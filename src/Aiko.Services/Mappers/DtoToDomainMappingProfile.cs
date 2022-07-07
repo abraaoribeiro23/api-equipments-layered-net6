@@ -1,5 +1,5 @@
 ﻿using Aiko.Domain.Models;
-using Aiko.Services.Contracts.Equipment;
+using Aiko.Services.Contracts.EquipmentModel;
 using AutoMapper;
 
 namespace Aiko.Services.Mappers;
@@ -8,8 +8,8 @@ public class DtoToDomainMappingProfile : Profile
 {
     public DtoToDomainMappingProfile()
     {
-        CreateMap<EquipmentDto, Equipment>();
-        CreateMap<EquipmentCreateDto, Equipment>();
-        CreateMap<EquipmentUpdateDto, Equipment>();
+        CreateMap<EquipmentModelDto, EquipmentModel>();
+        CreateMap<EquipmentModelCreateDto, EquipmentModel>();
+        CreateMap<EquipmentModelUpdateDto, EquipmentModel>();
     }
 }

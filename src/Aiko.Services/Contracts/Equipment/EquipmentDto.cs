@@ -1,8 +1,9 @@
-﻿namespace Aiko.Services.Contracts.Equipment
+﻿using Aiko.Services.Contracts.Base;
+
+namespace Aiko.Services.Contracts.Equipment
 {
-    public class EquipmentDto
+    public class EquipmentDto : BaseEntityDto
     {
-        public Guid Id { get; set; }
         public Guid EquipmentModelId { get; set; }
         public string Name { get; set; }
         
