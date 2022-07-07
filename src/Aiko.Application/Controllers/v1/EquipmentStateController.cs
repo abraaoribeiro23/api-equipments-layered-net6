@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Net;
 using Aiko.Application.Modules.Common;
 using Aiko.Domain.Models;
+using Aiko.Services.Contracts.EquipmentState;
 using Aiko.Services.Services;
 using Aiko.Services.Validators;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +26,7 @@ namespace Aiko.Application.Controllers.v1
         /// </summary>
         [HttpGet("get-all")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.List))]
-        public IEnumerable<EquipmentState> GetAll()
+        public IEnumerable<EquipmentStateGetAllDto> GetAll()
         {
             try
             {
@@ -42,7 +43,7 @@ namespace Aiko.Application.Controllers.v1
         /// <param name="id"></param>
         [HttpGet("get-by-id/{id:Guid}")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Find))]
-        public EquipmentState? GetById([FromRoute][Required] Guid id)
+        public EquipmentStateDto? GetById([FromRoute][Required] Guid id)
         {
             try
             {
@@ -59,7 +60,7 @@ namespace Aiko.Application.Controllers.v1
         /// <param name="dto"></param>
         [HttpPost("create")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Create))]
-        public async Task<EquipmentState> Create([FromBody][Required] EquipmentState dto)
+        public async Task<EquipmentStateDto> Create([FromBody][Required] EquipmentStateCreateDto dto)
         {
             try
             {
@@ -76,7 +77,7 @@ namespace Aiko.Application.Controllers.v1
         /// <param name="dto"></param>
         [HttpPut("edit")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Edit))]
-        public async Task<HttpResponseMessage> Edit([FromBody][Required] EquipmentState dto)
+        public async Task<HttpResponseMessage> Edit([FromBody][Required] EquipmentStateUpdateDto dto)
         {
             try
             {

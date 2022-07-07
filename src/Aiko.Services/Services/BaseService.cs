@@ -1,5 +1,4 @@
-﻿using Aiko.Domain.Interfaces;
-using Aiko.Domain.Interfaces.Repositories;
+﻿using Aiko.Domain.Interfaces.Repositories;
 using Aiko.Domain.Interfaces.Services;
 using FluentValidation;
 
