@@ -1,6 +1,8 @@
 ﻿namespace Aiko.Services.Contracts.Equipment
 {
-    public class EquipmentCreateDto: EquipmentDto
+    public class EquipmentCreateDto
     {
+        public string? Name { get; set; }
+        public Guid EquipmentModelId { get; set; }
     }
 }

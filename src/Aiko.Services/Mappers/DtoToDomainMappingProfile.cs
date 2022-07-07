@@ -1,4 +1,5 @@
 ﻿using Aiko.Domain.Models;
+using Aiko.Services.Contracts.Equipment;
 using Aiko.Services.Contracts.EquipmentModel;
 using Aiko.Services.Contracts.EquipmentState;
 using AutoMapper;
@@ -16,5 +17,9 @@ public class DtoToDomainMappingProfile : Profile
         CreateMap<EquipmentStateDto, EquipmentState>();
         CreateMap<EquipmentStateCreateDto, EquipmentState>();
         CreateMap<EquipmentStateUpdateDto, EquipmentState>();
+
+        CreateMap<EquipmentDto, Equipment>();
+        CreateMap<EquipmentCreateDto, Equipment>();
+        CreateMap<EquipmentUpdateDto, Equipment>();
     }
 }
