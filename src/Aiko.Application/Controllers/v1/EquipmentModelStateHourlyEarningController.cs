@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using Aiko.Application.Modules.Common;
-using Aiko.Domain.Models;
+using Aiko.Services.Contracts.EquipmentModelStateHourlyEarning;
 using Aiko.Services.Services;
 using Aiko.Services.Validators;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +25,7 @@ namespace Aiko.Application.Controllers.v1
         /// </summary>
         [HttpGet("get-all")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.List))]
-        public IEnumerable<EquipmentModelStateHourlyEarning> GetAll()
+        public IEnumerable<EquipmentModelStateHourlyEarningGetAllDto> GetAll()
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Aiko.Application.Controllers.v1
         /// <param name="id"></param>
         [HttpGet("get-by-id/{id:Guid}")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Find))]
-        public EquipmentModelStateHourlyEarning? GetById([FromRoute][Required] Guid id)
+        public EquipmentModelStateHourlyEarningDto? GetById([FromRoute][Required] Guid id)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Aiko.Application.Controllers.v1
         /// <param name="dto"></param>
         [HttpPost("create")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Create))]
-        public async Task<EquipmentModelStateHourlyEarning> Create([FromBody][Required] EquipmentModelStateHourlyEarning dto)
+        public async Task<EquipmentModelStateHourlyEarningDto> Create([FromBody][Required] EquipmentModelStateHourlyEarningCreateDto dto)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Aiko.Application.Controllers.v1
         /// <param name="dto"></param>
         [HttpPut("edit")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Edit))]
-        public async Task<HttpResponseMessage> Edit([FromBody][Required] EquipmentModelStateHourlyEarning dto)
+        public async Task<HttpResponseMessage> Edit([FromBody][Required] EquipmentModelStateHourlyEarningUpdateDto dto)
         {
             try
             {
