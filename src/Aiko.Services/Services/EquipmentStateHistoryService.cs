@@ -1,13 +1,15 @@
-﻿using Aiko.Domain.Interfaces;
-using Aiko.Domain.Interfaces.Repositories;
+﻿using Aiko.Domain.Interfaces.Repositories;
 using Aiko.Domain.Models;
+using Aiko.Services.Contracts.EquipmentStateHistory;
+using AutoMapper;
 
 namespace Aiko.Services.Services
 {
-    public class EquipmentStateHistoryService : BaseService<EquipmentStateHistory>
+    public class EquipmentStateHistoryService : NewBaseService<EquipmentStateHistory, EquipmentStateHistoryCreateDto,
+        EquipmentStateHistoryUpdateDto, EquipmentStateHistoryDto, EquipmentStateHistoryGetAllDto>
     {
         public EquipmentStateHistoryService(IEquipmentStateHistoryRepository repository,
-            IUnitOfWork unitOfWork): base(repository, unitOfWork)
+            IUnitOfWork unitOfWork, IMapper mapper): base(repository, unitOfWork, mapper)
         {
         }
     }

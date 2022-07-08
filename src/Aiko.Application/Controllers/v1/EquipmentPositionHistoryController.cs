@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Net;
 using Aiko.Application.Modules.Common;
-using Aiko.Domain.Models;
+using Aiko.Services.Contracts.EquipmentPositionHistory;
 using Aiko.Services.Services;
 using Aiko.Services.Validators;
 using Microsoft.AspNetCore.Mvc;
@@ -25,7 +25,7 @@ namespace Aiko.Application.Controllers.v1
         /// </summary>
         [HttpGet("get-all")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.List))]
-        public IEnumerable<EquipmentPositionHistory> GetAll()
+        public IEnumerable<EquipmentPositionHistoryGetAllDto> GetAll()
         {
             try
             {
@@ -42,7 +42,7 @@ namespace Aiko.Application.Controllers.v1
         /// <param name="id"></param>
         [HttpGet("get-by-id/{id:Guid}")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Find))]
-        public EquipmentPositionHistory? GetById([FromRoute][Required] Guid id)
+        public EquipmentPositionHistoryDto? GetById([FromRoute][Required] Guid id)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace Aiko.Application.Controllers.v1
         /// <param name="dto"></param>
         [HttpPost("create")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Create))]
-        public async Task<EquipmentPositionHistory> Create([FromBody][Required] EquipmentPositionHistory dto)
+        public async Task<EquipmentPositionHistoryDto> Create([FromBody][Required] EquipmentPositionHistoryCreateDto dto)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace Aiko.Application.Controllers.v1
         /// <param name="dto"></param>
         [HttpPut("edit")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Edit))]
-        public async Task<HttpResponseMessage> Edit([FromBody][Required] EquipmentPositionHistory dto)
+        public async Task<HttpResponseMessage> Edit([FromBody][Required] EquipmentPositionHistoryUpdateDto dto)
         {
             try
             {

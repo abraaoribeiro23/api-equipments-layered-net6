@@ -22,6 +22,7 @@ namespace Aiko.Application
                 .AddDbContext(Configuration)
                 .AddEntityRepository()
                 .AddServices()
+                .AddAutoMapperSetup()
                 .AddEndpointsApiExplorer()
                 .AddVersioning()
                 .AddSwaggerGen()

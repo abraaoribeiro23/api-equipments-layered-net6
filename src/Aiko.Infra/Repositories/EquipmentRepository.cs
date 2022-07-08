@@ -1,4 +1,5 @@
-﻿using Aiko.Domain.Interfaces;
+﻿using System.Linq;
+using Aiko.Domain.Interfaces;
 using Aiko.Domain.Interfaces.Repositories;
 using Aiko.Domain.Models;
 using Aiko.Infra.Context;
@@ -9,7 +10,13 @@ namespace Aiko.Infra.Repositories
     public class EquipmentRepository: BaseRepository<Equipment>, IEquipmentRepository
     {
         public EquipmentRepository(AppDbContext context) : base(context) {}
-        
+
+        public override IEnumerable<Equipment> GetAll()
+        {
+            return _dbSet
+                .Include(equipment => equipment.EquipmentModel)
+                .ToList();
+        }
         public override Equipment? GetById(Guid id)
         {
             var query = _dbSet.Where(entity => entity.Id == id)

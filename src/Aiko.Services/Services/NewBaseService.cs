@@ -1,37 +1,50 @@
 ﻿using Aiko.Domain.Interfaces.Repositories;
 using Aiko.Domain.Interfaces.Services;
+using AutoMapper;
 using FluentValidation;
 
 namespace Aiko.Services.Services
 {
-    public abstract class BaseService<TEntity> : IBaseService<TEntity> where TEntity : class
+    public abstract class NewBaseService<TEntity, TCreateDto, TUpdateDto, TGetDto, TGetAllDto>
+        : IBaseService<TEntity, TCreateDto, TUpdateDto, TGetDto, TGetAllDto>
+        where TEntity : class
+        where TCreateDto : class
+        where TUpdateDto : class
+        where TGetDto : class
+        where TGetAllDto : class
     {
         private readonly IBaseRepository<TEntity> _repository;
         private readonly IUnitOfWork _unitOfWork;
+        private readonly IMapper _mapper;
 
-        protected BaseService(IBaseRepository<TEntity> repository, IUnitOfWork unitOfWork)
+        protected NewBaseService(IBaseRepository<TEntity> repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
-        public virtual IEnumerable<TEntity> GetAll()
+        public virtual IEnumerable<TGetAllDto> GetAll()
         {
-            return _repository.GetAll();
+            var entities = _repository.GetAll();
+            return _mapper.Map<IEnumerable<TEntity>, IEnumerable<TGetAllDto>>(entities);
         }
-        public virtual TEntity? GetById(Guid id)
+        public virtual TGetDto? GetById(Guid id)
         {
-            return _repository.GetById(id);
+            var entity = _repository.GetById(id);
+            return _mapper.Map<TGetDto>(entity);
         }
-        public virtual async Task<TEntity> Create<TValidator>(TEntity entity) where TValidator : AbstractValidator<TEntity>
+        public virtual async Task<TGetDto> Create<TValidator>(TCreateDto dto) where TValidator : AbstractValidator<TEntity>
         {
+            var entity = _mapper.Map<TEntity>(dto);
             Validate(entity, Activator.CreateInstance<TValidator>());
             var result = await _repository.Add(entity).ConfigureAwait(false);
             await _unitOfWork.Commit().ConfigureAwait(false);
-            return result;
+            return _mapper.Map<TGetDto>(result);
         }
-        public virtual async Task Update<TValidator>(TEntity entity) where TValidator : AbstractValidator<TEntity>
+        public virtual async Task Update<TValidator>(TUpdateDto dto) where TValidator : AbstractValidator<TEntity>
         {
+            var entity = _mapper.Map<TEntity>(dto);
             Validate(entity, Activator.CreateInstance<TValidator>());
             _repository.Update(entity);
             await _unitOfWork.Commit().ConfigureAwait(false);
