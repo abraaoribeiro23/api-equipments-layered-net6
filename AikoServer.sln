@@ -9,7 +9,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aiko.Infra", "src\Aiko.Infr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aiko.Application", "src\Aiko.Application\Aiko.Application.csproj", "{87E4D23F-D6AC-4562-B322-23644BB66F29}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiko.Services", "src\Aiko.Services\Aiko.Services.csproj", "{920108E4-58DC-41BD-A7B4-F596715D107D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aiko.Services", "src\Aiko.Services\Aiko.Services.csproj", "{920108E4-58DC-41BD-A7B4-F596715D107D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiko.UnitTests", "tests\Aiko.UnitTests\Aiko.UnitTests.csproj", "{3B88C28D-4D56-48B0-B531-095D30D1F45A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aiko.IntegrationTests", "tests\Aiko.IntegrationTests\Aiko.IntegrationTests.csproj", "{498517A3-D3C5-4D4D-9687-29EA7C2051CC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{6FD15219-5D08-4048-8CAE-A0C332CD5D41}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{6BE1861D-20D2-4675-AC30-61FE3AE0F3C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,9 +41,25 @@ Global
 		{920108E4-58DC-41BD-A7B4-F596715D107D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{920108E4-58DC-41BD-A7B4-F596715D107D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{920108E4-58DC-41BD-A7B4-F596715D107D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B88C28D-4D56-48B0-B531-095D30D1F45A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B88C28D-4D56-48B0-B531-095D30D1F45A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B88C28D-4D56-48B0-B531-095D30D1F45A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B88C28D-4D56-48B0-B531-095D30D1F45A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{498517A3-D3C5-4D4D-9687-29EA7C2051CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{498517A3-D3C5-4D4D-9687-29EA7C2051CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{498517A3-D3C5-4D4D-9687-29EA7C2051CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{498517A3-D3C5-4D4D-9687-29EA7C2051CC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{14237F9B-F41B-466B-B2DC-FF895082F16D} = {6FD15219-5D08-4048-8CAE-A0C332CD5D41}
+		{06D71D75-4C7C-47F8-BCC9-4E04C3F13898} = {6FD15219-5D08-4048-8CAE-A0C332CD5D41}
+		{87E4D23F-D6AC-4562-B322-23644BB66F29} = {6FD15219-5D08-4048-8CAE-A0C332CD5D41}
+		{920108E4-58DC-41BD-A7B4-F596715D107D} = {6FD15219-5D08-4048-8CAE-A0C332CD5D41}
+		{3B88C28D-4D56-48B0-B531-095D30D1F45A} = {6BE1861D-20D2-4675-AC30-61FE3AE0F3C2}
+		{498517A3-D3C5-4D4D-9687-29EA7C2051CC} = {6BE1861D-20D2-4675-AC30-61FE3AE0F3C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {90C5CA9D-6F31-48C8-89FC-A0821F00EC36}
