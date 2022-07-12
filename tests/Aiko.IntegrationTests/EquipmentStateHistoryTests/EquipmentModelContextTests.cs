@@ -5,7 +5,7 @@ using Aiko.UnitTests.DataInjectors;
 using Xunit;
 using Xunit.Priority;
 
-namespace Aiko.IntegrationTests.EquipmentModelTests;
+namespace Aiko.IntegrationTests.EquipmentStateHistory;
 
 [TestCaseOrderer(PriorityOrderer.Name, PriorityOrderer.Assembly)]
 public class EquipmentModelContextTests : IClassFixture<ServiceProviderFixture>
@@ -26,7 +26,7 @@ public class EquipmentModelContextTests : IClassFixture<ServiceProviderFixture>
     public void GetAll_EquipmentModel_InitialContext()
     {
         InjectDataOnContext.InitializeDbForTests(_fixture.SqlContextFixture);
-        var repopository = new EquipmentModelRepository(_fixture.SqlContextFixture);
+        var repopository = new EquipmentStateHistoryRepository(_fixture.SqlContextFixture);
         var result = repopository.GetAll();
         Assert.NotNull(result);
 
