@@ -30,25 +30,23 @@ public class EquipmentPositionHistoryContextTests : IClassFixture<ServiceProvide
         var result = repopository.GetAll();
         Assert.NotNull(result);
 
-        var equipmentModels = result.ToList();
-        Assert.NotEmpty(equipmentModels);
-        Assert.Equal(722, equipmentModels.Count);
+        var entities = result.ToList();
+        Assert.NotEmpty(entities);
+        Assert.Equal(722, entities.Count);
     }
 
     [Fact(DisplayName = "Secound context Test")]
     [Priority(2)]
     public void GetAll_EquipmentPositionHistory_AddInContext()
     {
-        var equipmentModelJson =
-            Assembly?.GetManifestResourceStream($"{JsonPath}.equipment_position_history_001.json");
-        InjectDataOnContext.AddInContext<EquipmentPositionHistory>(_fixture.SqlContextFixture,
-            equipmentModelJson);
+        var json = Assembly?.GetManifestResourceStream($"{JsonPath}.equipment_position_history_001.json");
+        InjectDataOnContext.AddInContext<EquipmentPositionHistory>(_fixture.SqlContextFixture, json);
 
         var repopository = new EquipmentPositionHistoryRepository(_fixture.SqlContextFixture);
         var result = repopository.GetAll();
         Assert.NotNull(result);
-        var equipmentModels = result.ToList();
-        Assert.NotEmpty(equipmentModels);
-        Assert.Equal(723, equipmentModels.Count);
+        var entities = result.ToList();
+        Assert.NotEmpty(entities);
+        Assert.Equal(723, entities.Count);
     }
 }

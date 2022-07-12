@@ -30,24 +30,23 @@ public class EquipmentModelContextTests : IClassFixture<ServiceProviderFixture>
         var result = repopository.GetAll();
         Assert.NotNull(result);
 
-        var equipmentModels = result.ToList();
-        Assert.NotEmpty(equipmentModels);
-        Assert.Equal(3, equipmentModels.Count);
+        var entities = result.ToList();
+        Assert.NotEmpty(entities);
+        Assert.Equal(3, entities.Count);
     }
 
     [Fact(DisplayName = "Secound context Test")]
     [Priority(2)]
     public void GetAll_EquipmentModel_AddInContext()
     {
-        var equipmentModelJson =
-            Assembly?.GetManifestResourceStream($"{JsonPath}.equipment_model_001.json");
-        InjectDataOnContext.AddInContext<EquipmentModel>(_fixture.SqlContextFixture, equipmentModelJson);
+        var json = Assembly?.GetManifestResourceStream($"{JsonPath}.equipment_model_001.json");
+        InjectDataOnContext.AddInContext<EquipmentModel>(_fixture.SqlContextFixture, json);
 
         var repopository = new EquipmentModelRepository(_fixture.SqlContextFixture);
         var result = repopository.GetAll();
         Assert.NotNull(result);
-        var equipmentModels = result.ToList();
-        Assert.NotEmpty(equipmentModels);
-        Assert.Equal(4, equipmentModels.Count);
+        var entities = result.ToList();
+        Assert.NotEmpty(entities);
+        Assert.Equal(4, entities.Count);
     }
 }

@@ -30,25 +30,23 @@ public class EquipmentModelStateHourlyEarningContextTests : IClassFixture<Servic
         var result = repopository.GetAll();
         Assert.NotNull(result);
 
-        var equipmentModels = result.ToList();
-        Assert.NotEmpty(equipmentModels);
-        Assert.Equal(9, equipmentModels.Count);
+        var entities = result.ToList();
+        Assert.NotEmpty(entities);
+        Assert.Equal(9, entities.Count);
     }
 
     [Fact(DisplayName = "Secound context Test")]
     [Priority(2)]
     public void GetAll_EquipmentModelStateHourlyEarning_AddInContext()
     {
-        var equipmentModelJson =
-            Assembly?.GetManifestResourceStream($"{JsonPath}.equipment_model_state_hourly_earnings_001.json");
-        InjectDataOnContext.AddInContext<EquipmentModelStateHourlyEarning>(_fixture.SqlContextFixture,
-            equipmentModelJson);
+        var json = Assembly?.GetManifestResourceStream($"{JsonPath}.equipment_model_state_hourly_earnings_001.json");
+        InjectDataOnContext.AddInContext<EquipmentModelStateHourlyEarning>(_fixture.SqlContextFixture, json);
 
         var repopository = new EquipmentModelStateHourlyEarningRepository(_fixture.SqlContextFixture);
         var result = repopository.GetAll();
         Assert.NotNull(result);
-        var equipmentModels = result.ToList();
-        Assert.NotEmpty(equipmentModels);
-        Assert.Equal(10, equipmentModels.Count);
+        var entities = result.ToList();
+        Assert.NotEmpty(entities);
+        Assert.Equal(10, entities.Count);
     }
 }
