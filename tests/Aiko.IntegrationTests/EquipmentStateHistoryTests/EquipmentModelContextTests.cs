@@ -5,7 +5,7 @@ using Aiko.UnitTests.DataInjectors;
 using Xunit;
 using Xunit.Priority;
 
-namespace Aiko.IntegrationTests.EquipmentStateHistory;
+namespace Aiko.IntegrationTests.EquipmentStateHistoryTests;
 
 [TestCaseOrderer(PriorityOrderer.Name, PriorityOrderer.Assembly)]
 public class EquipmentModelContextTests : IClassFixture<ServiceProviderFixture>

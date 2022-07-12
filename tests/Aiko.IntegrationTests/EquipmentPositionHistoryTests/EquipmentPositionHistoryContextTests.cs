@@ -5,25 +5,25 @@ using Aiko.UnitTests.DataInjectors;
 using Xunit;
 using Xunit.Priority;
 
-namespace Aiko.IntegrationTests.EquipmentPositionHistory;
+namespace Aiko.IntegrationTests.EquipmentPositionHistoryTests;
 
 [TestCaseOrderer(PriorityOrderer.Name, PriorityOrderer.Assembly)]
-public class EquipmentModelContextTests : IClassFixture<ServiceProviderFixture>
+public class EquipmentPositionHistoryContextTests : IClassFixture<ServiceProviderFixture>
 {
-    private static readonly Type ClassType = typeof(EquipmentModelContextTests);
+    private static readonly Type ClassType = typeof(EquipmentPositionHistoryContextTests);
     private static readonly Assembly? Assembly = Assembly.GetAssembly(ClassType);
     private static readonly string JsonPath = $"{ClassType.Namespace}.SeedData";
 
     private readonly ServiceProviderFixture _fixture;
 
-    public EquipmentModelContextTests(ServiceProviderFixture fixture)
+    public EquipmentPositionHistoryContextTests(ServiceProviderFixture fixture)
     {
         _fixture = fixture;
     }
 
     [Fact(DisplayName = "First context Test")]
     [Priority(1)]
-    public void GetAll_EquipmentModel_InitialContext()
+    public void GetAll_EquipmentPositionHistory_InitialContext()
     {
         InjectDataOnContext.InitializeDbForTests(_fixture.SqlContextFixture);
         var repopository = new EquipmentPositionHistoryRepository(_fixture.SqlContextFixture);
@@ -32,22 +32,23 @@ public class EquipmentModelContextTests : IClassFixture<ServiceProviderFixture>
 
         var equipmentModels = result.ToList();
         Assert.NotEmpty(equipmentModels);
-        Assert.Equal(3, equipmentModels.Count);
+        Assert.Equal(722, equipmentModels.Count);
     }
 
     [Fact(DisplayName = "Secound context Test")]
     [Priority(2)]
-    public void GetAll_EquipmentModel_AddInContext()
+    public void GetAll_EquipmentPositionHistory_AddInContext()
     {
         var equipmentModelJson =
-            Assembly?.GetManifestResourceStream($"{JsonPath}.equipment_model_001.json");
-        InjectDataOnContext.AddInContext<EquipmentModel>(_fixture.SqlContextFixture, equipmentModelJson);
+            Assembly?.GetManifestResourceStream($"{JsonPath}.equipment_position_history_001.json");
+        InjectDataOnContext.AddInContext<EquipmentPositionHistory>(_fixture.SqlContextFixture,
+            equipmentModelJson);
 
-        var repopository = new EquipmentModelRepository(_fixture.SqlContextFixture);
+        var repopository = new EquipmentPositionHistoryRepository(_fixture.SqlContextFixture);
         var result = repopository.GetAll();
         Assert.NotNull(result);
         var equipmentModels = result.ToList();
         Assert.NotEmpty(equipmentModels);
-        Assert.Equal(4, equipmentModels.Count);
+        Assert.Equal(723, equipmentModels.Count);
     }
 }
