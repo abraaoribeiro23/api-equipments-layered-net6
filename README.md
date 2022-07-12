@@ -3,15 +3,25 @@ I used this backend challenge to study and test my knowledge with layered archit
 ## Challenge:
 https://github.com/aikodigital/teste-backend-estagio-v2
 
-## Technologies:
+## Technologies
+### Application
 - C#/.net6
 - Swagger
-- InMemoryDatabase
+- xUnit
+- AutoMapper
+- FeatureManagement
+- Serilog
+
+### DB
+- InMemoryDatabase (dev)
+- MSSql
+- Postgresql
 
 ## Solution
 ### Architecture
 -- about the Architecture --
+
 ### Layers
 -- about the Layers --
-### DB
--- about the Db --
+
+
