@@ -94,7 +94,7 @@ public static class CustomApiConventions
     [ApiConventionNameMatch(ApiConventionNameMatchBehavior.Prefix)]
     [ProducesDefaultResponseType]
     [ProducesResponseType(200)]
-    [ProducesResponseType(409)]
+    [ProducesResponseType(204)]
     [ProducesResponseType(StatusCodes.Status500InternalServerError)]
     public static void List()
     {

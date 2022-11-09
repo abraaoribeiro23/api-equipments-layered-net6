@@ -22,20 +22,14 @@ namespace Api.Controllers.v1
 
         [HttpGet("get-all")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.List))]
-        public IEnumerable<EquipmentGetAllDto> GetAll()
+        public IActionResult GetAll()
         {
-            try
-            {
-                return _equipmentService.GetAll();
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var result = _equipmentService.GetAll();
+            return StatusCode((int)HttpStatusCode.OK, result);
         }
 
         [HttpGet("get-by-id/{id:Guid}")]
-        [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Find))]
+        [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Get))]
         public IActionResult GetById([FromRoute][Required] Guid id)
         {
             var resultDto = _equipmentService.GetById(id);
@@ -52,39 +46,33 @@ namespace Api.Controllers.v1
 
         [HttpPut("edit")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Edit))]
-        public async Task<HttpResponseMessage> Edit([FromBody][Required] EquipmentUpdateDto dto)
+        public async Task<IActionResult> Edit([FromBody][Required] EquipmentUpdateDto dto)
         {
             try
             {
                 await _equipmentService.Update<EquipmentValidator>(dto);
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return StatusCode((int)HttpStatusCode.Accepted);
             }
             catch (Exception ex)
             {
-                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    Content = new StringContent(ex.Message)
-                };
-                return response;
+                return StatusCode((int)HttpStatusCode.InternalServerError,
+                    new StringContent(ex.Message));
             }
         }
 
         [HttpDelete("delete/{id:Guid}")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Delete))]
-        public async Task<HttpResponseMessage> Delete([FromRoute][Required] Guid id)
+        public async Task<IActionResult> Delete([FromRoute][Required] Guid id)
         {
             try
             {
                 await _equipmentService.Delete(id);
-                return new HttpResponseMessage(HttpStatusCode.OK);
+                return StatusCode((int)HttpStatusCode.OK);
             }
             catch (Exception ex)
             {
-                var response = new HttpResponseMessage(HttpStatusCode.InternalServerError)
-                {
-                    Content = new StringContent(ex.Message)
-                };
-                return response;
+                return StatusCode((int)HttpStatusCode.InternalServerError,
+                    new StringContent(ex.Message));
             }
         }
     }
