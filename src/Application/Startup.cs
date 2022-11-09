@@ -1,9 +1,7 @@
 ﻿using Api.Modules.Common;
 using Api.Modules.Common.Swagger;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.FeatureManagement;
-using Persistence.Context;
 using Serilog;
 
 namespace Api;
