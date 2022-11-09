@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Tests.Integration", "te
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Persistence", "src\Persistence\Persistence.csproj", "{52FC5F36-9EEA-4EF0-82AE-39FE3FD2273A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Tests.Integration.Docker", "tests\Api.Tests.Integration.Docker\Api.Tests.Integration.Docker.csproj", "{E8E352E7-7104-4118-AD7C-08F629A0823F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{52FC5F36-9EEA-4EF0-82AE-39FE3FD2273A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52FC5F36-9EEA-4EF0-82AE-39FE3FD2273A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52FC5F36-9EEA-4EF0-82AE-39FE3FD2273A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E8E352E7-7104-4118-AD7C-08F629A0823F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E8E352E7-7104-4118-AD7C-08F629A0823F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E8E352E7-7104-4118-AD7C-08F629A0823F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E8E352E7-7104-4118-AD7C-08F629A0823F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +59,7 @@ Global
 		{89EFEABE-99BB-47D5-A021-6D373AF26238} = {6FD15219-5D08-4048-8CAE-A0C332CD5D41}
 		{33B1B8BC-AB24-4964-8D90-ED15533D37D6} = {6BE1861D-20D2-4675-AC30-61FE3AE0F3C2}
 		{52FC5F36-9EEA-4EF0-82AE-39FE3FD2273A} = {6FD15219-5D08-4048-8CAE-A0C332CD5D41}
+		{E8E352E7-7104-4118-AD7C-08F629A0823F} = {6BE1861D-20D2-4675-AC30-61FE3AE0F3C2}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {90C5CA9D-6F31-48C8-89FC-A0821F00EC36}
