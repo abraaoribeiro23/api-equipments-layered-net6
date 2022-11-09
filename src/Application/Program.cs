@@ -30,7 +30,7 @@ public static class Program
             {
                 configApp.AddCommandLine(args);
             })
-            .ConfigureWebHostDefaults(webBuilder => { webBuilder.UseStartup<Startup>(); })
+            .ConfigureWebHostDefaults(builder => { builder.UseStartup<Startup>(); })
             .UseSerilog(); ;
     }
 }

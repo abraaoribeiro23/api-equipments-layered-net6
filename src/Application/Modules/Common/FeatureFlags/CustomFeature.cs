@@ -16,9 +16,14 @@ public enum CustomFeature
     Swagger,
 
     /// <summary>
-    ///     Use Swagger.
+    ///     Use MsSqlServer.
     /// </summary>
     MsSqlServer,
+
+    /// <summary>
+    ///     Use PostgresSql.
+    /// </summary>
+    PostgresSql,
 
     /// <summary>
     ///     Inject Initial Data on memory Db.

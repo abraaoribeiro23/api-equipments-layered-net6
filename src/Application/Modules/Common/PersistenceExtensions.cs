@@ -6,7 +6,7 @@ using Persistence.Context;
 
 namespace Api.Modules.Common
 {
-    public static class InfraExtensions
+    public static class PersistenceExtensions
     {
         public static IServiceCollection AddDbContext(this IServiceCollection services,
             IConfiguration configuration)
@@ -17,6 +17,12 @@ namespace Api.Modules.Common
 
             var isMsSqlServerEnabled = featureManager
                 .IsEnabledAsync(nameof(CustomFeature.MsSqlServer))
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
+
+            var isPostgresSqlEnabled = featureManager
+                .IsEnabledAsync(nameof(CustomFeature.PostgresSql))
                 .ConfigureAwait(false)
                 .GetAwaiter()
                 .GetResult();
@@ -32,6 +38,11 @@ namespace Api.Modules.Common
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(
                         configuration.GetValue<string>("PersistenceModule:MsSqlDbConnection")));
+            }else if (isPostgresSqlEnabled)
+            {
+                services.AddDbContext<AppDbContext>(options =>
+                    options.UseNpgsql(
+                        configuration.GetValue<string>("PersistenceModule:PgSqlDbConnection")));
             }
             else
             {
