@@ -1,11 +1,13 @@
 ﻿using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Persistence.Extensions;
 
 namespace Persistence.Configurations
 {
     public class EquipmentConfiguration : IEntityTypeConfiguration<Equipment>
     {
+        protected const string SeedJsonBasePath = "Persistence.SeedData";
         public void Configure(EntityTypeBuilder<Equipment> builder)
         {
             builder.Property(equipment => equipment.Id).HasColumnName("equi_uuid_equipment");
@@ -30,6 +32,7 @@ namespace Persistence.Configurations
                 .HasForeignKey(x => x.EquipmentId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+            builder.InsertSeedData($"{SeedJsonBasePath}.equipment.json");
         }
     }
 }
