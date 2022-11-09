@@ -24,9 +24,6 @@ namespace Api.Controllers.v1
             _equipmentService = equipmentService;
         }
 
-        /// <summary>
-        ///     Get All Equipments.
-        /// </summary>
         [HttpGet("get-all")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.List))]
         public IEnumerable<EquipmentGetAllDto> GetAll()
@@ -40,44 +37,23 @@ namespace Api.Controllers.v1
                 throw ex;
             }
         }
-        /// <summary>
-        ///     Get an Equipment details.
-        /// </summary>
-        /// <param name="id"></param>
+
         [HttpGet("get-by-id/{id:Guid}")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Find))]
-        public EquipmentDto? GetById([FromRoute][Required] Guid id)
+        public IActionResult GetById([FromRoute][Required] Guid id)
         {
-            try
-            {
-                return _equipmentService.GetById(id);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var resultDto = _equipmentService.GetById(id);
+            return StatusCode((int) HttpStatusCode.OK, resultDto);
         }
-        /// <summary>
-        ///     Create an Equipment.
-        /// </summary>
-        /// <param name="dto"></param>
+
         [HttpPost("create")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Create))]
-        public async Task<EquipmentDto> Create([FromBody][Required] EquipmentCreateDto dto)
+        public async Task<IActionResult> Create([FromBody][Required] EquipmentCreateDto dto)
         {
-            try
-            {
-                return await _equipmentService.Create<EquipmentValidator>(dto);
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            var resultDto = await _equipmentService.Create<EquipmentValidator>(dto);
+            return StatusCode((int) HttpStatusCode.Created, resultDto);
         }
-        /// <summary>
-        ///     Edit an Equipment.
-        /// </summary>
-        /// <param name="dto"></param>
+
         [HttpPut("edit")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Edit))]
         public async Task<HttpResponseMessage> Edit([FromBody][Required] EquipmentUpdateDto dto)
@@ -96,10 +72,7 @@ namespace Api.Controllers.v1
                 return response;
             }
         }
-        /// <summary>
-        ///     Delete an Equipment.
-        /// </summary>
-        /// <param name="id"></param>
+
         [HttpDelete("delete/{id:Guid}")]
         [ApiConventionMethod(typeof(CustomApiConventions), nameof(CustomApiConventions.Delete))]
         public async Task<HttpResponseMessage> Delete([FromRoute][Required] Guid id)

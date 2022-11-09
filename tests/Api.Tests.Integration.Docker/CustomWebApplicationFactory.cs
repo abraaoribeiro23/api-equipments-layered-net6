@@ -1,6 +1,4 @@
 using System.Collections.Generic;
-using System.Data.Common;
-using System.Net.Http;
 using System.Threading.Tasks;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Configurations;
@@ -18,8 +16,6 @@ using Xunit;
 
 namespace Api.Tests.Integration.Docker;
 
-/// <summary>
-/// </summary>
 public sealed class CustomWebApplicationFactory : WebApplicationFactory<Startup>, IAsyncLifetime
 {
     private readonly TestcontainerDatabase _dbContainer = new TestcontainersBuilder<PostgreSqlTestcontainer>()
@@ -52,9 +48,7 @@ public sealed class CustomWebApplicationFactory : WebApplicationFactory<Startup>
                 options.UseNpgsql(new NpgsqlConnection(_dbContainer.ConnectionString)));
         });
     }
-    public async Task InitializeAsync()
-    {
-        await _dbContainer.StartAsync();
-    }
-    public async Task DisposeAsync() => await _dbContainer.StopAsync();
+    public async Task InitializeAsync() => await _dbContainer.StartAsync();
+
+    public new async Task DisposeAsync() => await _dbContainer.DisposeAsync();
 }
