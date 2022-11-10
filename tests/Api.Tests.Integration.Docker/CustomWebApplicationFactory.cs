@@ -9,22 +9,26 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Npgsql;
 using Persistence.Context;
 using Xunit;
 
 namespace Api.Tests.Integration.Docker;
 
-public sealed class CustomWebApplicationFactory : WebApplicationFactory<Startup>, IAsyncLifetime
+public class CustomWebApplicationFactory : WebApplicationFactory<Startup>, IAsyncLifetime
 {
-    private readonly TestcontainerDatabase _dbContainer = new TestcontainersBuilder<PostgreSqlTestcontainer>()
-        .WithDatabase(new PostgreSqlTestcontainerConfiguration
-        {
-            Database = "mydb",
-            Username = "user",
-            Password = "qwe123"
-        }).Build();
+    private readonly TestcontainerDatabase _dbContainer;
+    public CustomWebApplicationFactory()
+    {
+        _dbContainer = new TestcontainersBuilder<PostgreSqlTestcontainer>()
+            .WithDatabase(new PostgreSqlTestcontainerConfiguration
+            {
+                Database = "mydb",
+                Username = "user",
+                Password = "qwe123"
+            })
+            .WithCleanUp(true)
+            .Build();
+    }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -34,18 +38,22 @@ public sealed class CustomWebApplicationFactory : WebApplicationFactory<Startup>
                 config.AddInMemoryCollection(
                     new Dictionary<string, string>
                     {
-                        ["FeatureManagement:Swagger"] = "false",
                         ["FeatureManagement:MsSqlServer"] = "false",
                         ["FeatureManagement:PostgresSql"] = "false",
-                        ["FeatureManagement:InjectInitialData"] = "false"
+                        ["FeatureManagement:InMemoryDatabase"] = "false"
                     });
             });
 
         builder.ConfigureTestServices(services =>
         {
-            services.RemoveAll(typeof(AppDbContext));
+            // Remove AppDbContext
+            services.RemoveDbContext<AppDbContext>();
+            
             services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(new NpgsqlConnection(_dbContainer.ConnectionString)));
+                options.UseNpgsql(_dbContainer.ConnectionString));
+
+            // Ensure schema gets created
+            services.EnsureDbCreated<AppDbContext>();
         });
     }
     public async Task InitializeAsync() => await _dbContainer.StartAsync();
