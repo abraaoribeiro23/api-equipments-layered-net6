@@ -8,7 +8,7 @@ namespace Domain.Models
     {
         [Column("eqph_uuid_equipment")]
         public Guid EquipmentId { get; set; }
-        [Column("eqph_dt_date", TypeName = "datetime")]
+        [Column("eqph_dt_date", TypeName = "timestamp")]
         public DateTime Date { get; set; }
         [Column("eqph_nm_lat", TypeName = "float")]
         public double Lat { get; set; }

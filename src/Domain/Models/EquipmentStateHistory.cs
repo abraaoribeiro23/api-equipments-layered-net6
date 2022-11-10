@@ -11,7 +11,7 @@ namespace Domain.Models
 
         [Column("eqsh_uuid_equipment_state")]
         public Guid EquipmentStateId { get; set; }
-        [Column("eqsh_dt_date", TypeName = "datetime")]
+        [Column("eqsh_dt_date", TypeName = "timestamp")]
         public DateTime Date { get; set; }
     }
 }
