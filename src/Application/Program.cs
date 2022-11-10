@@ -31,6 +31,6 @@ public static class Program
                 configApp.AddCommandLine(args);
             })
             .ConfigureWebHostDefaults(builder => { builder.UseStartup<Startup>(); })
-            .UseSerilog(); ;
+            .UseSerilog();
     }
 }

@@ -26,6 +26,11 @@ public enum CustomFeature
     PostgresSql,
 
     /// <summary>
+    ///     Use In-Memory Database.
+    /// </summary>
+    InMemoryDatabase,
+
+    /// <summary>
     ///     Inject Initial Data on memory Db.
     /// </summary>
     InjectInitialData

@@ -27,6 +27,12 @@ namespace Api.Modules.Common
                 .GetAwaiter()
                 .GetResult();
 
+            var inMemoryDatabaseEnabled = featureManager
+                .IsEnabledAsync(nameof(CustomFeature.InMemoryDatabase))
+                .ConfigureAwait(false)
+                .GetAwaiter()
+                .GetResult();
+
             var injectInitialData = featureManager
                 .IsEnabledAsync(nameof(CustomFeature.InjectInitialData))
                 .ConfigureAwait(false)
@@ -38,13 +44,14 @@ namespace Api.Modules.Common
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseSqlServer(
                         configuration.GetValue<string>("PersistenceModule:MsSqlDbConnection")));
-            }else if (isPostgresSqlEnabled)
+            }
+            if (isPostgresSqlEnabled)
             {
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseNpgsql(
                         configuration.GetValue<string>("PersistenceModule:PgSqlDbConnection")));
             }
-            else
+            if(inMemoryDatabaseEnabled)
             {
                 services.AddDbContext<AppDbContext>(options =>
                     options.UseInMemoryDatabase("test_database").EnableSensitiveDataLogging()
@@ -52,8 +59,7 @@ namespace Api.Modules.Common
 
                 if (!injectInitialData) return services;
 
-                var context = services.BuildServiceProvider()
-                    .GetService<AppDbContext>();
+                var context = services.BuildServiceProvider().GetService<AppDbContext>();
                 InMemoryContextFake.AddDataFakeContext(context);
             }
             return services;
