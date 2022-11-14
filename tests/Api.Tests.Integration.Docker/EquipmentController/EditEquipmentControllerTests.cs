@@ -1,47 +1,46 @@
-﻿using System.Linq;
+﻿using System;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Bogus;
-using Persistence.Context;
 using Services.Contracts.Equipment;
 using Xunit;
 
 namespace Api.Tests.Integration.Docker.EquipmentController;
 
-public class EditEquipmentControllerTests : IClassFixture<CustomWebApplicationFactory>
+[Collection(nameof(SharedTestCollection))]
+public class EditEquipmentControllerTests : EquipmentBaseTests
 {
-    private const string RequestUrl = "/api/v1/equipment/edit";
+    private const string CreateRequestUrl = "/api/v1/equipment/create";
+    private const string EditRequestUrl = "/api/v1/equipment/edit";
+    private const string ExistentModel = "a3540227-2f0e-4362-9517-92f41dabbfdf";
 
-    private readonly HttpClient _client;
-    private readonly AppDbContext _context;
+    private readonly Faker<EquipmentCreateDto> _equipmentCreateDtoGenerator = new Faker<EquipmentCreateDto>()
+        .RuleFor(dto => dto.Name, faker => faker.Lorem.Word())
+        .RuleFor(dto => dto.EquipmentModelId, Guid.Parse(ExistentModel));
 
-    private readonly Faker<EquipmentUpdateDto> _equipmentGenerator = new Faker<EquipmentUpdateDto>()
-        .RuleFor(dto => dto.Name, faker => faker.Lorem.Word());
+    private readonly Faker<EquipmentUpdateDto> _equipmentUpdateDtoGenerator = new Faker<EquipmentUpdateDto>()
+        .RuleFor(dto => dto.Name, faker => faker.Lorem.Word())
+        .RuleFor(dto => dto.EquipmentModelId, Guid.Parse(ExistentModel));
 
-    public EditEquipmentControllerTests(CustomWebApplicationFactory factory)
+    public EditEquipmentControllerTests(CustomWebApplicationFactory factory) : base(factory)
     {
-        _client = factory.CreateClient();
     }
 
     //[Fact]
     public async Task Edit_Equipment_Success()
     {
         // Arrange
-        var equipment = _context.Equipments.FirstOrDefault();
-        var updateEquipmentDto = _equipmentGenerator.Clone()
-            .RuleFor(dto => dto.Id, equipment?.Id)
-            .RuleFor(dto => dto.EquipmentModelId, equipment?.EquipmentModelId)
-            .Generate();
+        var createEquipmentDto = _equipmentCreateDtoGenerator.Generate();
+        await Client.PostAsJsonAsync(CreateRequestUrl, createEquipmentDto);
+
+        var updateEquipmentDto = _equipmentUpdateDtoGenerator.Generate();
 
         // Act
-        var editResponse = await _client.PostAsJsonAsync(RequestUrl, updateEquipmentDto);
+        var editResponse = await Client.PostAsJsonAsync(EditRequestUrl, updateEquipmentDto);
 
         // Assert
         Assert.Equal(HttpStatusCode.Accepted, editResponse.StatusCode);
-        var editedEquipment = _context.Equipments.FirstOrDefault(e => e.Id == updateEquipmentDto.Id);
-        Assert.NotNull(editedEquipment);
-        Assert.Equal(updateEquipmentDto.Name,editedEquipment?.Name);
     }
 }

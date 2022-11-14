@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Net.Http;
 using System.Threading.Tasks;
 using DotNet.Testcontainers.Builders;
@@ -10,7 +11,9 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 using Persistence.Context;
+using Respawn;
 using Xunit;
 
 namespace Api.Tests.Integration.Docker;
@@ -18,6 +21,10 @@ namespace Api.Tests.Integration.Docker;
 public class CustomWebApplicationFactory : WebApplicationFactory<Startup>, IAsyncLifetime
 {
     private readonly TestcontainerDatabase _dbContainer;
+    private DbConnection _dbConnection = default!;
+    private Respawner _respawner = default!;
+    public HttpClient HttpClient { get; private set; } = default!;
+
     public CustomWebApplicationFactory()
     {
         _dbContainer = BuilTestContainer();
@@ -55,14 +62,34 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Startup>, IAsyn
             services.RemoveDbContext<AppDbContext>();
             
             services.AddDbContext<AppDbContext>(options =>
-                options.UseNpgsql(_dbContainer.ConnectionString));
+                options.UseNpgsql(new NpgsqlConnection(_dbContainer.ConnectionString)));
 
             // Ensure schema gets created
             services.EnsureDbCreated<AppDbContext>();
         });
     }
 
-    public async Task InitializeAsync() => await _dbContainer.StartAsync();
+    public async Task ResetDatabaseAsync()
+    {
+        await _respawner.ResetAsync(_dbConnection);
+    }
+
+    public async Task InitializeAsync()
+    {
+        await _dbContainer.StartAsync();
+        _dbConnection = new NpgsqlConnection(_dbContainer.ConnectionString);
+        HttpClient = CreateClient();
+        await InitializeRespawner();
+    }
+
+    private async Task InitializeRespawner()
+    {
+        await _dbConnection.OpenAsync();
+        _respawner = await Respawner.CreateAsync(_dbConnection, new RespawnerOptions
+        {
+            DbAdapter = DbAdapter.Postgres
+        });
+    }
 
     public new async Task DisposeAsync() => await _dbContainer.DisposeAsync();
 }
