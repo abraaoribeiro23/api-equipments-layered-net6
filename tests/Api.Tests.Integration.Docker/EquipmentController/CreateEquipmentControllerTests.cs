@@ -9,7 +9,8 @@ using Xunit;
 
 namespace Api.Tests.Integration.Docker.EquipmentController;
 
-public class CreateEquipmentControllerTests : IClassFixture<CustomWebApplicationFactory>
+[Collection(nameof(SharedTestCollection))]
+public class CreateEquipmentControllerTests
 {
     private const string RequestUrl = "/api/v1/equipment/create";
     private const string ExistentModel = "a3540227-2f0e-4362-9517-92f41dabbfdf";

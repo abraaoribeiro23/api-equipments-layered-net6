@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using DotNet.Testcontainers.Builders;
 using DotNet.Testcontainers.Configurations;
@@ -19,14 +20,18 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Startup>, IAsyn
     private readonly TestcontainerDatabase _dbContainer;
     public CustomWebApplicationFactory()
     {
-        _dbContainer = new TestcontainersBuilder<PostgreSqlTestcontainer>()
+        _dbContainer = BuilTestContainer();
+    }
+
+    private static TestcontainerDatabase BuilTestContainer()
+    {
+        return new TestcontainersBuilder<PostgreSqlTestcontainer>()
             .WithDatabase(new PostgreSqlTestcontainerConfiguration
             {
                 Database = "mydb",
                 Username = "user",
                 Password = "qwe123"
             })
-            .WithCleanUp(true)
             .Build();
     }
 
@@ -56,6 +61,7 @@ public class CustomWebApplicationFactory : WebApplicationFactory<Startup>, IAsyn
             services.EnsureDbCreated<AppDbContext>();
         });
     }
+
     public async Task InitializeAsync() => await _dbContainer.StartAsync();
 
     public new async Task DisposeAsync() => await _dbContainer.DisposeAsync();

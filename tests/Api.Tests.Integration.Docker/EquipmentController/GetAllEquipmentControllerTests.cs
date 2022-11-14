@@ -19,7 +19,7 @@ public class GetAllEquipmentControllerTests : IClassFixture<CustomWebApplication
     {
         _client = factory.CreateClient();
     }
-    
+
     [Fact]
     public async Task GetAllEquipmentReturnsList()
     {
